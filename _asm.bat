@@ -34,13 +34,10 @@ set target=hd_main
 call :ASM
 
 rem ROM IMAGE mapping
-set target=sasirom
+set target=rom\sasirom
 echo Building final ROM image '%target%'
 %BHM% <%target%.bhm >%target%.log
-copy %target%.bin ROM
 
-rem copy ROM file
-copy %target%.bin ROM
 rem copy ROM file to emulator
 copy %target%.bin %EMUROM%
 
