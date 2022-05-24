@@ -1,0 +1,11 @@
+;----------------------------------------------------------
+;MZ-2500 enhanced SASI : bhm batch file
+;ROM FileSystem IMAGE BUILD
+;----------------------------------------------------------
+
+;-------------------------
+;ROM File System
+LOAD romfs\rom_util.hdd 0 0x10000
+SAVE rom_fs.bin 0x3000 0x7100
+;
+QUIT

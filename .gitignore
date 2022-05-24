@@ -1,0 +1,11 @@
+/archive/
+/scrap/
+/ignore/
+/bk*/
+*.hex
+*.lst
+*.log
+*.d88
+/romfs
+/_release*
+.vscode

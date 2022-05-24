@@ -1,0 +1,53 @@
+;----------------------------------------------------------
+;MZ-2500 enhanced SASI : bhm batch file
+;ROM IMAGE BUILD
+;----------------------------------------------------------
+
+;-------------------------
+;zero fill , make file
+MEMORY	0x0000 0x00 0x20000
+SAVE sasirom.bin 0 0x8000
+
+;-------------------------
+;MISC overlay + COMMON-BIOS + IPL-FCB+installer
+LOAD out\hd_main.hex
+
+;IPL-FCB +IPL-INSTALLER to Recoard #0,1,2,3,4,5,6,7
+SAVE sasirom.bin 0xE000 0x0800 0x0000
+
+;COMMON block to Recoard #8
+SAVE sasirom.bin 0x0F00 0x0100 0x0800
+
+;-------------------------
+;overlay block
+
+;MISC overlay    : Recoard #B
+SAVE sasirom.bin 0x0C1F 0x0100 0x0B00
+
+;DATA_IN overlay : Recoard #9
+MEMORY 0x0C00 0x00 0x200
+LOAD out\hd_ovl_rx.hex
+
+SAVE sasirom.bin 0x0C1F 0x0100 0x0900
+
+;DATA_OUT overlay : Recoard #A
+MEMORY 0x0C00 0x00 0x200
+LOAD out\hd_ovl_tx.hex
+SAVE sasirom.bin 0x0C1F 0x0100 0x0A00
+
+;CMD READ/WRITE overlay : Recoard #C
+MEMORY 0x0C00 0x00 0x200
+LOAD out\hd_ovl_cmd_rw.hex
+SAVE sasirom.bin 0x0C1F 0x0100 0x0C00
+
+;CMD RETRACT(SEEK) overlay : Recoard #D
+MEMORY 0x0C00 0x00 0x200
+LOAD out\hd_ovl_retract.hex
+SAVE sasirom.bin 0x0C1F 0x0100 0x0D00
+
+;-------------------------
+;ROM File System
+load rom_fs.bin 0
+SAVE sasirom.bin 0x0000 0x7100 0x0F00
+;
+QUIT
