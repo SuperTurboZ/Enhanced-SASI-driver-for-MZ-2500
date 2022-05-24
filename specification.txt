@@ -1,4 +1,4 @@
-Enhanced-SASI DRIVER Ver.20220519 Specification
+Enhanced-SASI DRIVER Specification
 
 -----------------------------------------------------
 ■ 対応ドライブ
@@ -40,16 +40,16 @@ NumBlock: 1 (256 bytes)
 
 パーティションデータの内訳
 
-+000       : ASSIGN(※CTRL) : bit7=1 優先起動
-                              bit6..3=予約(emuデバイス
-							  bit2..0=ドライブ番号(0=未割り当て)
-+001..+002 : CAPACITY H,L   : パーティション容量 (0x0001 - 0xFF00）
-+003       : SASI-ID        : SASIバス上の対象ID
++000       : ASSIGN(※CTRL)         : bit7=1 優先起動
+                                      bit6..3=予約(emuデバイス
+                                      bit2..0=ドライブ番号(0=未割り当て)
++001..+002 : CAPACITY H,L           : パーティション容量 (0x0001 - 0xFF00）
++003       : SASI-ID                : SASIバス上の対象ID
 +004..+0007: TOP-LUN ,TOP-LAD2,1,0  : オフセットアドレス
 +008..+000B: SAFE-LUN,SAFE-LAD2,1,0 : リキャリブレートアドレス(ALL 0で無効)
 +00C..+000F: reserved               : 予備
 
-※固定コードの日付はフォーマット決定時時のスタンプでROMバージョンとは一致しません。
+※固定コードの日付はフォーマット決定時のスタンプでROMバージョンとは一致しません。
 ※ASSIGNはドライバー内部ではコマンド実行時のCTRLバイトとして機能します。
 
 -----------------------------------------------------
@@ -107,8 +107,8 @@ MZ-1F23には20MBのHDDが一台接続されていますが、これを2分割して約10MBの
 
 ・ID,LUNとドライブの割り当て
 
-ID=0 , LUN = 0 : "HD1:","HD2:" : C.S.C.P.のエミュレータでは HD1
-ID=0 , LUN = 1 : "HD3:","HD4:" : C.S.C.P.のエミュレータでは HD2
+ID=0 , LUN = 0 : "HD1:","HD2:" : EmuZ-2500では 'HD1'
+ID=0 , LUN = 1 : "HD3:","HD4:" : EmuZ-2500では 'HD2'
 
 ・セクター割り当て
 0x00_0000..0x00_0000 : 未使用（IDメッセージ)
@@ -133,8 +133,8 @@ Linuxでは "dd if=/dev/zero of=HARDDISK.HDD bs=256 count=87648"
 
 ・ID,LUNとドライブの割り当て
 
-ID=0 , LUN = 0 : "HD1:" : C.S.C.P.のエミュレータでは HD1
-ID=0 , LUN = 1 : "HD2:" : C.S.C.P.のエミュレータでは HD2
+ID=0 , LUN = 0 : "HD1:" : EmuZ-2500では 'HD1'
+ID=0 , LUN = 1 : "HD2:" : EmuZ-2500では 'HD2'
 
 容量等のパーティション詳細は現在の所は不明です。
 
@@ -143,10 +143,10 @@ ID=0 , LUN = 1 : "HD2:" : C.S.C.P.のエミュレータでは HD2
 
 Recoard
 address area   : name      : contentes               : note
-0x0000..0x003F : IPLFCB    : MZ IPL RECOARD          :
+0x0000..0x003F : IPLFCB    : MZ IPL RECOARD          : MZ-2500 IPL format
 0x0040..0x004F : VERSION   : ROM version code        : 16bytes
 0x0040..0x007F : COPYRIGHT : copyright string        :
-0x0080..0x00FF : LICENCE   : licence string          : 'CC BY-NC-SA'
+0x0080..0x00FF : LICENCE   : licence string          : 
 0x0100..0x0700 : INSTALL   : IPL-PROGRAM             : boot installer ,partition load
 0x0800..0x08FF : COMMON    : HD driver common code   : 'HD:' dev.desc. , entry , inkey hook
 0x0900..0x09FF : RX        : HD driver overlay block : SASI DIN -STS-MSG-FREE (read)
